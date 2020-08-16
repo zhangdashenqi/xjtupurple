@@ -1,5 +1,8 @@
 # xjtupurple
+
 > ### 原网址已经转移到[https://xjtupurple.codes](https://xjtupurple.codes)!
+> #### 若微信无法打开, 可以移步至[http://remote.endaytrer.io](http://remote.endaytrer.io)
+
 ### 为了没有紫码的你们更方便的出狱
 
 > 点击下方的 "交大校园码" 即可更改名字、学号等属性。
@@ -77,6 +80,6 @@
 - 报到登记更改后无法精确到秒
 - 外出时间没有不合法性识别
 
-Powered by Github Pages, jQuery, Vue.js & QRCode.js.
+Powered by Github Pages, Nginx, jQuery, Vue.js & QRCode.js.
 
 Made by Endaytrer.
