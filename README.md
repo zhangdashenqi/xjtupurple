@@ -1,7 +1,7 @@
 # xjtupurple
 
 > ### 原网址已经转移到[https://xjtupurple.codes](https://xjtupurple.codes)!
-> #### 若微信无法打开, 可以移步至[http://remote.endaytrer.io](http://remote.endaytrer.io)
+> #### 若微信无法打开, 可以移步至[http://remote.endaytrer.me](http://remote.endaytrer.me)
 
 ### 为了没有紫码的你们更方便的出狱
 
