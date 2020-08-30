@@ -26,11 +26,11 @@ body {
 }
 
 .graduateBackground {
-  background-color: #7547C0;
+  background-color: #7547c0;
 }
 
 .overseaBackground {
-  background-color: #353A73;
+  background-color: #353a73;
 }
 
 .photograph {
@@ -38,7 +38,7 @@ body {
   width: 89px;
   height: 118px;
   background-color: #000;
-  border: 9px solid #ffffff;
+  border: 8px solid #ffffff;
 }
 
 .textContainer {
@@ -250,12 +250,12 @@ input::-webkit-inner-spin-button {
   outline: none;
   border: none;
   border-radius: 12px;
-  box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.15),
-    inset 0px 0px 0px transparent;
+  box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.15), inset 0px 0px 0px transparent;
   margin: 30px 50px 20px;
   transition: all ease-in-out 200ms;
 }
 
 .submitButton:active {
-  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), inset 3px 3px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0),
+    inset 3px 3px 12px rgba(0, 0, 0, 0.15);
 }
