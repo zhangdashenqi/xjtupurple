@@ -1,10 +1,5 @@
 # xjtupurple
-<<<<<<< HEAD
-# 此分支为备用分支, 若原网址在微信中无法打开, 可以使用下面的网址
-> ### 备用网址: [http://remote.endaytrer.me](http://remote.endaytrer.me)
-=======
 
->>>>>>> cafb80a7e4a810fae449526e983bb96de67cd4f1
 > ### 原网址已经转移到[https://xjtupurple.codes](https://xjtupurple.codes)!
 > #### 若微信无法打开, 可以移步至[http://remote.endaytrer.me](http://remote.endaytrer.me)
 
@@ -15,6 +10,11 @@
 > 本网站尊重用户隐私，所有数据都不会上传
 > 
 > **本网站仅供技术练习与交流，切勿实际使用，否则后果自负** 
+
+### 9.1 更新: 照片边框宽度自定义调节, 再优化文件结构
+目前在“交大校园码”菜单中, 新增了调节照片宽度的选项, 可以储存在缓存中, 并可以通过photo_border_width在url中访问.
+主要的Vue代码从index.html中分开, 移动至js/app.js.
+Vue和JQuery现在通过NPM安装. 若想要在自己的设备上部署, 需通过“npm install”下载.
 
 ### 8.14 更新: 通过URL在多个设备访问相同信息, 并且可以根据信息生成对应的URL
 **感谢 @zhang570221322 提供的想法和代码实现!**
