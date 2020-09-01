@@ -45,7 +45,7 @@ let app = new Vue({
             return this.generateColorOfCode === "紫码";
         },
         computedURL: function () {
-            return "http://xjtupurple.codes/?stu_no=" + this.stuNo +
+            return "http://remote.endaytrer.me/?stu_no=" + this.stuNo +
                 "&stu_name=" + this.stuName +
                 "&stu_position=" + this.stuPosition +
                 "&stu_degree=" + this.stuDegree +
