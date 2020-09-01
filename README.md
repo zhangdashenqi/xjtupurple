@@ -1,7 +1,13 @@
 # xjtupurple
+<<<<<<< HEAD
 # 此分支为备用分支, 若原网址在微信中无法打开, 可以使用下面的网址
 > ### 备用网址: [http://remote.endaytrer.me](http://remote.endaytrer.me)
+=======
+
+>>>>>>> cafb80a7e4a810fae449526e983bb96de67cd4f1
 > ### 原网址已经转移到[https://xjtupurple.codes](https://xjtupurple.codes)!
+> #### 若微信无法打开, 可以移步至[http://remote.endaytrer.me](http://remote.endaytrer.me)
+
 ### 为了没有紫码的你们更方便的出狱
 
 > 点击下方的 "交大校园码" 即可更改名字、学号等属性。
@@ -79,6 +85,6 @@
 - 报到登记更改后无法精确到秒
 - 外出时间没有不合法性识别
 
-Powered by Github Pages, jQuery, Vue.js & QRCode.js.
+Powered by Github Pages, Nginx, jQuery, Vue.js & QRCode.js.
 
 Made by Endaytrer.
