@@ -45,7 +45,7 @@ let app = new Vue({
             return this.generateColorOfCode === "紫码";
         },
         computedURL: function () {
-            return "http://remote.endaytrer.me/?stu_no=" + this.stuNo +
+            return "http://xjtupurple.codes/?stu_no=" + this.stuNo +
                 "&stu_name=" + this.stuName +
                 "&stu_position=" + this.stuPosition +
                 "&stu_degree=" + this.stuDegree +
@@ -55,6 +55,7 @@ let app = new Vue({
                 "&out_time_to=" + this.outTimeTo +
                 "&qr_code=" + this.qrCode +
                 "&generate_color_of_code=" + this.generateColorOfCode;
+                "&photo_border_width" + this.photoBorderWidth;
         }
     },
     created: function () {
@@ -80,6 +81,7 @@ let app = new Vue({
             localStorage.setItem("qr_code", this.qrCode);
             localStorage.setItem("photo_url", this.photoURL);
             localStorage.setItem("generate_color_of_code", this.generateColorOfCode);
+            localStorage.setItem("photo_border_width", this.photoBorderWidth);
             alert("保存成功!");
         },
         getQueryVariable(variable) { //查询URL信息
@@ -109,10 +111,6 @@ let app = new Vue({
             this.photoBorderWidth = this.getQueryVariable("photoBorderWidth") || this.photoBorderWidth;
         },
         getPersonalDataFromCache() { // 从缓存读取数据
-            /**
-             * @deprecated
-             * @type {string|string}
-             */
             this.qrCode = localStorage.getItem("qr_code") || this.qrCode
             this.stuNo = localStorage.getItem("stu_no") || this.stuNo;
             this.stuName = localStorage.getItem("stu_name") || this.stuName;
@@ -125,6 +123,7 @@ let app = new Vue({
             this.photoURL = localStorage.getItem("photo_url") || this.photoURL;
             this.generateColorOfCode = localStorage.getItem("generate_color_of_code") || this
                 .generateColorOfCode;
+            this.photoBorderWidth = localStorage.getItem("photo_border_width") || this.photoBorderWidth;
         },
         getTimeData() { // 获取时间并格式化
             let aDate = new Date();
