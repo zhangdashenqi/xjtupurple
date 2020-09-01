@@ -4,264 +4,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
     <title>交大校园码</title>
-    <script src="js/vue.min.js"></script>
-    <script src="js/jquery.min.js"></script>
+    <script src="node_modules/vue/dist/vue.min.js"></script>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="js/qrcode.min.js"></script>
     <script src="js/script.js"></script>
+    <script src="node_modules/vue-slider-component/dist/vue-slider-component.umd.min.js"></script>
+    <link rel="stylesheet" href="./node_modules/vue-slider-component/theme/default.css">
     <link rel="stylesheet" href="css/iconfont.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <div id="app">
-        <div class="container">
-            <div class="floatMenu" style="display: none;">
-                <h4>学号</h4><input type="number" name="stuNum" id="stuNumInput" class="inputBox" v-model="stuNo">
-                <h4>姓名</h4><input type="text" name="stuName" id="stuNameInput" class="inputBox" v-model="stuName">
-                <h4>书院和班级</h4><input type="text" name="stuPos" id="stuPosInput" class="inputBox" v-model="stuPosition">
-                <h4>学位</h4><select class="inputBox" v-model="stuDegree">
-                    <option>本科生</option>
-                    <option>研究生</option>
-                    <option>留学生</option>
-                </select>
-                <h4>生成码颜色</h4><select class="inputBox" v-model="generateColorOfCode">
-                    <option>紫码</option>
-                    <option>绿码</option>
-                </select>
-                <h4>报到日期</h4><input type="date" name="reportDate" id="reportDateInput" class="inputBox"
-                    v-model="reportDate">
-                <h4>报到时间</h4><input type="time" name="reportTime" id="reportTimeInput" class="inputBox"
-                    v-model="reportTime">
-                <h4>离校时间</h4><input type="time" name="outDateTime" id="outTimeInput" class="inputBox"
-                    v-model="outTimeFrom">
-                <h4>返校时间</h4><input type="time" name="inDateTime" id="inTimeInput" class="inputBox" v-model="outTimeTo">
-                <h4>自定义二维码内容(留空以随机生成)</h4><input type="text" name="qrCode" id="qrCodeInput" class="inputBox"
-                    v-model="qrCode">
-                <h4>照片</h4><input type="file" name="imageUpload" id="imageUploadInput" accept="image/*"
-                    @change="changeImage">
-                <h4>复制下面的URL以在任何地方访问该紫码</h4><input readonly type="text" name="urlText" class="inputBox"
-                    v-model="computedURL">
-                <button class="submitButton" id="submitButton" @click="writeInfoToCache">将信息保存到缓存</button>
+<div id="app">
+    <div class="container">
+        <div class="floatMenu" style="display: none;">
+            <h4>学号</h4><input type="number" name="stuNum" id="stuNumInput"
+                              class="inputBox" v-model="stuNo">
+            <h4>姓名</h4><input type="text" name="stuName" id="stuNameInput"
+                              class="inputBox" v-model="stuName">
+            <h4>书院和班级</h4><input type="text" name="stuPos" id="stuPosInput"
+                                                                  class="inputBox" v-model="stuPosition">
+            <h4>学位</h4>
+            <select class="inputBox" v-model="stuDegree">
+                <option>本科生</option>
+                <option>研究生</option>
+                <option>留学生</option>
+            </select>
+            <h4>生成码颜色</h4>
+            <select class="inputBox" v-model="generateColorOfCode">
+                <option>紫码</option>
+                <option>绿码</option>
+            </select>
+            <h4>报到日期</h4><input type="date" name="reportDate" id="reportDateInput"
+                                class="inputBox"
+                                v-model="reportDate">
+            <h4>报到时间</h4><input type="time" name="reportTime" id="reportTimeInput"
+                                class="inputBox"
+                                v-model="reportTime">
+            <h4>离校时间</h4><input type="time" name="outDateTime" id="outTimeInput"
+                                class="inputBox"
+                                v-model="outTimeFrom">
+            <h4>返校时间</h4><input type="time" name="inDateTime" id="inTimeInput"
+                                class="inputBox" v-model="outTimeTo">
+            <h4>自定义二维码内容(留空以随机生成)</h4><input type="text" name="qrCode" id="qrCodeInput"
+                                             class="inputBox"
+                                             v-model="qrCode">
+            <h4>照片</h4><input type="file" name="imageUpload" id="imageUploadInput" accept="image/*"
+                              @change="changeImage">
+            <h4>照片边框宽度</h4>
+            <vue-slider class="widthSlider" v-model="photoBorderWidth" width="230px" :data="[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]"></vue-slider>
+            <h4>复制下面的URL以在任何地方访问该紫码</h4>
+            <input readonly type="text" name="urlText" class="inputBox"
+                   v-model="computedURL">
+            <button class="submitButton" id="submitButton" @click="writeInfoToCache">将信息保存到缓存</button>
+        </div>
+        <div class="topContainer"
+             :class=" {'undergraduateBackground': isUndergraduate, 'graduateBackground': isGraduate, 'overseaBackground': isOversea} ">
+            <img :src="photoURL" class="photograph" alt="this is your photo"
+                 onerror="this.src='img/default.jpeg';this.οnerrοr=null;"
+                 :style="{borderWidth: photoBorderWidth + 'px'}"/>
+            <div class="textContainer">
+                <p>{{ stuNo }} {{ stuName }} <small class="smallText">{{ stuDegree }}</small></p>
+                <p>{{ stuPosition }}</p>
             </div>
-            <div class="topContainer"
-                :class=" {'undergraduateBackground': isUndergraduate, 'graduateBackground': isGraduate, 'overseaBackground': isOversea} ">
-                <img :src="photoURL" class="photograph" alt="this is your photo" onerror="javascript:this.src='img/default.jpeg';this.οnerrοr=null;" />
-                <div class="textContainer">
-                    <p>{{ stuNo }} {{ stuName }} <small class="smallText">{{ stuDegree }}</small></p>
-                    <p>{{ stuPosition }}</p>
+        </div>
+        <div class="mainContentContainer">
+            <div class="dataContainer">
+                <div class="title">
+                    <h3>当前时间：</h3>
                 </div>
-            </div>
-            <div class="mainContentContainer">
-                <div class="dataContainer">
-                    <div class="title">
-                        <h3>当前时间：</h3>
-                    </div>
-                    <div class="timeDate">
-                        <div id="date">{{ nowDate }}</div>
-                        <div id="time">{{ nowTime }}</div>
-                        <p>已于 {{ reportDate }} {{ reportTime }} 完成报到登记</p>
-                        <p v-if="isPurple">外出时间<span class="green">{{ today }} {{ outTimeFrom }}</span>至<span
-                                class="green">{{ today }}
+                <div class="timeDate">
+                    <div id="date">{{ nowDate }}</div>
+                    <div id="time">{{ nowTime }}</div>
+                    <p>已于 {{ reportDate }} {{ reportTime }} 完成报到登记</p>
+                    <p v-if="isPurple">外出时间<span class="green">{{ today }} {{ outTimeFrom }}</span>至<span
+                            class="green">{{ today }}
                                 {{ outTimeTo }}</span>
-                        </p>
-                    </div>
+                    </p>
                 </div>
-                <div class="qrContainer">
-                    <div class="degreeBar"
-                        :class=" {'undergraduateBackground': isUndergraduate, 'graduateBackground': isGraduate, 'overseaBackground': isOversea} ">
-                    </div>
-                    <p>{{ stuDegree }}</p>
-                    <div id="qrCode"></div>
+            </div>
+            <div class="qrContainer">
+                <div class="degreeBar"
+                     :class=" {'undergraduateBackground': isUndergraduate, 'graduateBackground': isGraduate, 'overseaBackground': isOversea} ">
                 </div>
-                <div class="propaganda" v-if="isPurple">校园最安全，外出有风险</div>
-                <div class="propaganda" v-if="isPurple">其他必须外出的情况</div>
+                <p>{{ stuDegree }}</p>
+                <div id="qrCodeDisplay"></div>
             </div>
+            <div class="propaganda" v-if="isPurple">校园最安全，外出有风险</div>
+            <div class="propaganda" v-if="isPurple">其他必须外出的情况</div>
         </div>
-        <div class="bottomBar">
-            <div class="button active" id="menuToggler">
-                <i class="icon iconfont icon-daibanshiyiicon"></i>
-                <p>交大校园码</p>
-            </div>
-            <div class="button">
-                <i class="icon iconfont icon-daibanshiyiicon"></i>
-                <p>返校申请</p>
-            </div>
-            <div class="button">
-                <i class="icon iconfont icon-daibanshiyiicon"></i>
-                <p>外出申请</p>
-            </div>
-            <div class="button">
-                <i class="icon iconfont icon-daibanshiyiicon"></i>
-                <p>转码申请</p>
-            </div>
+    </div>
+    <div class="bottomBar">
+        <div class="button active" id="menuToggler">
+            <i class="icon iconfont icon-daibanshiyiicon"></i>
+            <p>交大校园码</p>
         </div>
-        <script>
-            var app = new Vue({
-                el: "#app",
-                data: {
-                    stuNo: "1234567890", // 学号
-                    stuName: "唐纳德", // 姓名
-                    stuPosition: "美国华盛顿/白宫", // 学生书院/班级
-                    stuDegree: "本科生", // 学生学位
-                    reportDate: "2020-05-01", // 学生报道日期
-                    reportTime: "11:45:14", // 学生报道时间
-                    today: "",
-                    nowDate: "",
-                    nowTime: "",
-                    outTimeFrom: "00:00", // 外出时间
-                    outTimeTo: "23:59", // 入校时间
-                    photoURL: "img/default.jpeg", // 学生照片
-                    qrCode: "", // 生成的二维码
-                    generateColorOfCode: "紫码"
-                },
-                computed: {
-                    isUndergraduate: function () {
-                        return this.stuDegree === "本科生";
-                    },
-                    isGraduate: function () {
-                        return this.stuDegree === "研究生";
-                    },
-                    isOversea: function () {
-                        return this.stuDegree === "留学生";
-                    },
-                    colorOfCode: function () {
-                        switch (this.generateColorOfCode) {
-                            case "紫码":
-                                return "#F97AFB";
-                                break;
-                            case "绿码":
-                                return "#2BAA66";
-                                break;
-                            default:
-                                return "#F97AFB";
-                                break;
-                        }
-                    },
-                    isPurple: function () {
-                        return this.generateColorOfCode === "紫码";
-                    },
-                    computedURL: function () {
-                        var url = "http://remote.endaytrer.me/?stu_no=" + this.stuNo +
-                            "&stu_name=" + this.stuName +
-                            "&stu_position=" + this.stuPosition +
-                            "&stu_degree=" + this.stuDegree +
-                            "&report_date=" + this.reportDate +
-                            "&report_time=" + this.reportTime +
-                            "&out_time_from=" + this.outTimeFrom +
-                            "&out_time_to=" + this.outTimeTo +
-                            "&qr_code=" + this.qrCode +
-                            "&generate_color_of_code=" + this.generateColorOfCode;
-                        return url;
-                    }
-                },
-                created: function () {
-                    this.timer();
-                    this.getTimeData();
-                    this.getPersonalDataFromCache();
-                    this.getInformationFromUrl(); //默认优先读取URL中的信息, 将缓存信息覆盖
-                },
-
-                methods: {
-                    writeInfoToCache() { // 将数据写入缓存
-                        localStorage.setItem("stu_no", this.stuNo);
-                        localStorage.setItem("stu_name", this.stuName);
-                        localStorage.setItem("stu_position", this.stuPosition);
-                        localStorage.setItem("stu_degree", this.stuDegree);
-                        localStorage.setItem("report_date", this.reportDate);
-                        localStorage.setItem("report_time", this.reportTime);
-                        localStorage.setItem("out_time_from", this.outTimeFrom);
-                        localStorage.setItem("out_time_to", this.outTimeTo);
-                        localStorage.setItem("qr_code", this.qrCode);
-                        localStorage.setItem("photo_url", this.photoURL);
-                        localStorage.setItem("generate_color_of_code", this.generateColorOfCode);
-                        alert("保存成功!");
-                    },
-                    getQueryVariable(variable) { //查询URL信息
-                        var query = window.location.search.substring(1);
-                        var vars = query.split("&");
-                        for (var i = 0; i < vars.length; i++) {
-                            var pair = vars[i].split("=");
-                            if (pair[0] == variable) {
-                                return decodeURI(pair[1]);
-                            }
-                        }
-                        return false;
-                    },
-                    getInformationFromUrl() { // 从URL获取信息
-                        this.qrCode = this.getQueryVariable("qr_code") || this.generateCode();
-                        this.stuNo = this.getQueryVariable("stu_no") || this.stuNo;
-                        this.stuName = this.getQueryVariable("stu_name") || this.stuName;
-                        this.stuPosition = this.getQueryVariable("stu_position") || this.stuPosition;
-                        this.stuDegree = this.getQueryVariable("stu_degree") || this.stuDegree;
-                        this.reportDate = this.getQueryVariable("report_date") || this.reportDate;
-                        this.reportTime = this.getQueryVariable("report_time") || this.reportTime;
-                        this.outTimeFrom = this.getQueryVariable("out_time_from") || this.outTimeFrom;
-                        this.outTimeTo = this.getQueryVariable("out_time_to") || this.outTimeTo;
-                        this.photoURL = this.getQueryVariable("photo_url") || "http://hello.xjtu.edu.cn/staticFile/image/people/"+this.stuNo+".jpg";
-                        this.generateColorOfCode = this.getQueryVariable("generate_color_of_code") || this
-                            .generateColorOfCode;
-                    },
-                    getPersonalDataFromCache() { // 从缓存读取数据
-                        this.qrCode = localStorage.getItem("qr_code") || this.qrCode
-                        this.stuNo = localStorage.getItem("stu_no") || this.stuNo;
-                        this.stuName = localStorage.getItem("stu_name") || this.stuName;
-                        this.stuPosition = localStorage.getItem("stu_position") || this.stuPosition;
-                        this.stuDegree = localStorage.getItem("stu_degree") || this.stuDegree;
-                        this.reportDate = localStorage.getItem("report_date") || this.reportDate;
-                        this.reportTime = localStorage.getItem("report_time") || this.reportTime;
-                        this.outTimeFrom = localStorage.getItem("out_time_from") || this.outTimeFrom;
-                        this.outTimeTo = localStorage.getItem("out_time_to") || this.outTimeTo;
-                        this.photoURL = localStorage.getItem("photo_url") || this.photoURL;
-                        this.generateColorOfCode = localStorage.getItem("generate_color_of_code") || this
-                            .generateColorOfCode;
-                    },
-                    getTimeData() { // 获取时间并格式化
-                        var aDate = new Date();
-                        this.nowDate = (aDate.getMonth() + 1 <= 9 ? "0" + (aDate.getMonth() + 1) : aDate
-                            .getMonth() + 1) + "月" + (aDate
-                            .getDate() <= 9 ? "0" + aDate.getDate() : aDate.getDate()) + "日";
-                        this.nowTime = (aDate.getHours() <= 9 ? "0" +
-                            aDate.getHours() : aDate.getHours()) + ":" + (aDate.getMinutes() <= 9 ? "0" +
-                            aDate
-                            .getMinutes() :
-                            aDate.getMinutes()) + ":" + (aDate.getSeconds() <= 9 ? "0" + aDate
-                            .getSeconds() :
-                            aDate.getSeconds());
-                        this.today = aDate.getFullYear() + "-" + (aDate.getMonth() + 1 <= 9 ? "0" + (aDate
-                                    .getMonth() + 1) : aDate
-                                .getMonth() + 1) +
-                            "-" + (aDate.getDate() <= 9 ? "0" + aDate.getDate() : aDate.getDate());
-                    },
-                    timer() { // 实时更新时间, 重制时钟间隔
-                        return setInterval(() => {
-                            this.getTimeData();
-                        }, 100);
-                    },
-                    generateCode() { // 生成随机二维码数据
-                        var seq = "";
-                        var hexSeq = "0123456789ABCDEF";
-                        for (let index = 0; index < 32; index++) {
-                            seq += "" + hexSeq[Math.floor(Math.random() * 16)];
-                        }
-                        return seq;
-                    },
-                    changeImage() { // 更换图片
-                        var reader = new FileReader();
-                        var file = document.getElementById("imageUploadInput").files[0];
-                        reader.readAsDataURL(file);
-                        var that = this;
-                        reader.addEventListener("load", function () {
-                            that.photoURL = reader.result;
-                        }, false);
-                    }
-                },
-                destroyed: function () { // 清除计时器间隔
-                    clearInterval(this.timer);
-                }
-            })
-        </script>
+        <div class="button">
+            <i class="icon iconfont icon-daibanshiyiicon"></i>
+            <p>返校申请</p>
+        </div>
+        <div class="button">
+            <i class="icon iconfont icon-daibanshiyiicon"></i>
+            <p>外出申请</p>
+        </div>
+        <div class="button">
+            <i class="icon iconfont icon-daibanshiyiicon"></i>
+            <p>转码申请</p>
+        </div>
+    </div>
+    <script src="js/app.js">
+    </script>
+</div>
 </body>
 
 </html>

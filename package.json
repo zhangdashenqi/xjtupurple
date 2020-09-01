@@ -1,0 +1,25 @@
+{
+  "name": "xjtupurple",
+  "version": "1.0.0",
+  "description": "> ### 备用网址: [http://remote.endaytrer.me](http://remote.endaytrer.me) > ### 原网址已经转移到[https://xjtupurple.codes](https://xjtupurple.codes)! ### 为了没有紫码的你们更方便的出狱",
+  "main": "index.js",
+  "dependencies": {
+    "jquery": "^3.5.1",
+    "vue": "^2.6.12",
+    "vue-slider-component": "^3.2.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/endaytrer/xjtupurple.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/endaytrer/xjtupurple/issues"
+  },
+  "homepage": "https://github.com/endaytrer/xjtupurple#readme"
+}
