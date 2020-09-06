@@ -1,6 +1,6 @@
 # xjtupurple
 
-> ### 原网址已经转移到[https://xjtupurple.codes](https://xjtupurple.codes)!
+> ### 原网址已经转移到[http://xjtupurple.codes](http://xjtupurple.codes)!
 > #### 若微信无法打开, 可以移步至[http://remote.endaytrer.me](http://remote.endaytrer.me)
 
 ### 为了没有紫码的你们更方便的出狱
@@ -21,9 +21,9 @@ Vue和JQuery现在通过NPM安装. 若想要在自己的设备上部署, 需通�
 
 现在可以通过将固定的URL发送给另一台设备作为访问同一个人信息的方法. 同时在菜单最下面一栏给出信息对应的URL以便复制和多平台使用.
 
-例如, 输入网址https://xjtupurple.codes/?stu_name=张三&stu_position=foo书院/bar班&stu_degree=本科生 即可获得姓名为张三, 书院和班级为foo书院/bar班, 学位为本科生的信息. 其他信息为默认的(学号为1234567890, 报到日期为2020.5.1, 照片为美国总统官方照等). 这些信息可以在交大校园码菜单中保存到缓存, 方便下次调用.
+例如, 输入网址http://xjtupurple.codes/?stu_name=张三&stu_position=foo书院/bar班&stu_degree=本科生 即可获得姓名为张三, 书院和班级为foo书院/bar班, 学位为本科生的信息. 其他信息为默认的(学号为1234567890, 报到日期为2020.5.1, 照片为美国总统官方照等). 这些信息可以在交大校园码菜单中保存到缓存, 方便下次调用.
 具体方法:
-1. 输入https://xjtupurple.codes/?
+1. 输入http://xjtupurple.codes/?
 2. 选择任意一个想要改变/新增的值, 输入到上述地址的后面:
    - 若想改变/新增姓名: 输入"stu_name="
    - 若想改变/新增学号: 输入"stu_no="
@@ -57,7 +57,7 @@ Vue和JQuery现在通过NPM安装. 若想要在自己的设备上部署, 需通�
 
 ### 如何使用
 1. 打开微信;
-2. 将这个网址[https://xjtupurple.codes](https://xjtupurple.codes)发送给一个人;
+2. 将这个网址[http://xjtupurple.codes](http://xjtupurple.codes)发送给一个人;
 3. 点击发送出去的链接;
 4. 点击"交大校园码";
 5. 将内容修改为自己的信息;
@@ -85,6 +85,6 @@ Vue和JQuery现在通过NPM安装. 若想要在自己的设备上部署, 需通�
 - 报到登记更改后无法精确到秒
 - 外出时间没有不合法性识别
 
-Powered by Github Pages, Nginx, jQuery, Vue.js & QRCode.js.
+Powered by Nginx, jQuery, Vue.js & QRCode.js.
 
 Made by Endaytrer.
