@@ -70,11 +70,17 @@ let app = new Vue({
       "&photo_border_width" + this.photoBorderWidth;
     },
   },
-  created: function () {
+  created: async function () {
     this.timingInterval = this.timer();
-    this.getTimeData();
-    this.getPersonalDataFromCache();
-    this.getInformationFromUrl(); //默认优先读取URL中的信息, 将缓存信息覆盖
+    await this.getTimeData();
+    await this.getPersonalDataFromCache();
+    await this.getInformationFromUrl(); //默认优先读取URL中的信息, 将缓存信息覆盖
+    if (!localStorage.getItem("reminded")) {
+      alert(
+        "由于美国总统唐纳德·特朗普确诊了该病毒, 为防止新型冠状病毒(COVID-19)通过网络传播(误), 将默认的头像和名字改为俄罗斯总统弗拉基米尔·普京的相关信息😀"
+      );
+      localStorage.setItem("reminded", "true");
+    }
   },
 
   methods: {
